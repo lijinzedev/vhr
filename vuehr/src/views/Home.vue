@@ -12,7 +12,7 @@
             <!--个人中心 -->
             <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
             <!--设置-->
-            <el-drpdown-item command="setting">设置</el-drpdown-item>
+            <el-dropdown-item command="setting">设置</el-dropdown-item>
             <!--注销登录-->
             <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
           </el-dropdown-menu>
@@ -24,10 +24,10 @@
 
         <!--侧抽屉菜单-->
         <el-aside width="200px">
-          <el-menu @select="menuClick">
-            <el-submenu index="1" v-for="(item,index) in this.$router.options.routes" v-if="!item.hidden" :key="index">
+          <el-menu @select="menuClick" unique-opened>
+            <el-submenu :index="index+'' " v-for="(item,index) in routes" v-if="!item.hidden" :key="index">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i style="color: #2990ff;margin-right: 8px " :class="item.iconCls"></i>
                 <span>{{ item.name }}</span>
               </template>
               <el-menu-item :index="child.path" v-for="(child,j) in item.children" :key="j">{{ child.name }}
@@ -56,6 +56,11 @@ export default {
       user: JSON.parse(window.sessionStorage.getItem("user"))
     }
   },
+  computed: {
+    routes() {
+      return this.$store.state.routes;
+    }
+  },
   methods: {
     commandHandler(cmd) {
       if (cmd == 'logout') {
@@ -67,6 +72,7 @@ export default {
           this.getRequest('/logout');
           window.sessionStorage.clear();
           this.$router.replace('/')
+          this.$store.state.routes = [];
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -91,7 +97,7 @@ export default {
 
 <style scoped>
 .homeHeader {
-  background-color: #0b8ea0;
+  background-color: #2990ff;
   display: flex;
   align-items: center;
   justify-content: space-between;

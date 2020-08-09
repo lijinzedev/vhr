@@ -4,12 +4,13 @@ import {Message} from 'element-ui';
 axios.interceptors.response.use(
     success => {
         if (success.status && success.status == 200 && success.data.status == 500) {
-            debugger
+
             Message.error({message: success.data.status.msg});
             return;
         }
-
-        Message.success({message: success.data.status.msg});
+        if (success.data.status)
+            if (success.data.status.msg)
+                Message.success({message: success.data.status.msg});
         return success.data;
     }, error => {
         if (error.response.status == 504 || error.response.status == 404) {
@@ -52,9 +53,9 @@ export const postRequest = (url, params) => {
 
     return axios(
         {
-            method:'post',
-            url:`${base}${url}`,
-            data:params
+            method: 'post',
+            url: `${base}${url}`,
+            data: params
         }
     )
 
@@ -64,9 +65,9 @@ export const putRequest = (url, params) => {
 
     return axios(
         {
-            method:'post',
-            url:`${base}${url}`,
-            data:params
+            method: 'put',
+            url: `${base}${url}`,
+            data: params
         }
     )
 
@@ -74,9 +75,9 @@ export const putRequest = (url, params) => {
 export const getRequest = (url, params) => {
     return axios(
         {
-            method:'post',
-            url:`${base}${url}`,
-            data:params
+            method: 'get',
+            url: `${base}${url}`,
+            data: params
         }
     )
 
@@ -85,9 +86,9 @@ export const deleteRequest = (url, params) => {
 
     return axios(
         {
-            method:'post',
-            url:`${base}${url}`,
-            data:params
+            method: 'delete',
+            url: `${base}${url}`,
+            data: params
         }
     )
 

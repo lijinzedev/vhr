@@ -9,6 +9,8 @@ import {deleteRequest} from "@/utils/api";
 import {getRequest} from "@/utils/api";
 import {postRequest} from "@/utils/api";
 import store from './store'
+import {initMenu} from "@/utils/menus";
+import 'font-awesome/css/font-awesome.min.css'
 Vue.prototype.postKeyValueRequest=postKeyValueRequest;
 Vue.prototype.putRequest=putRequest;
 Vue.prototype.deleteRequest=deleteRequest;
@@ -17,6 +19,15 @@ Vue.prototype.postRequest=postRequest;
 Vue.use(ElementUI);
 Vue.config.productionTip = false
 
+// 前置导航守卫 类似于java的拦截器
+router.beforeEach((to,from,next)=>{
+    if (to.path=='/') next();
+    else {
+      initMenu(router,store);
+      next();
+    }
+
+});
 new Vue({
   router,
   store,

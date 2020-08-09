@@ -1,5 +1,7 @@
 package com.li.vhr.model;
 
+import java.util.List;
+
 public class Menu {
     private Integer id;
 
@@ -20,18 +22,18 @@ public class Menu {
 
     private Meta meta;
 
-    private Menu children;
-
-    public Menu getChildren() {
-        return children;
-    }
-
-    public void setChildren(Menu children) {
-        this.children = children;
-    }
+    private List<Menu> children;
 
     public Meta getMeta() {
         return meta;
+    }
+
+    public List<Menu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Menu> children) {
+        this.children = children;
     }
 
     public void setMeta(Meta meta) {
