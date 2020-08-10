@@ -18,18 +18,25 @@
     </resultMap>
     <resultMap id="Menu2" type="Menu" extends="BaseResultMap">
         <collection property="children" ofType="Menu">
-        <id column="id2" property="id" jdbcType="INTEGER"/>
-        <result column="url2" property="url" jdbcType="VARCHAR"/>
-        <result column="path2" property="path" jdbcType="VARCHAR"/>
-        <result column="component2" property="component" jdbcType="VARCHAR"/>
-        <result column="name2" property="name" jdbcType="VARCHAR"/>
-        <result column="iconCls2" property="iconCls" jdbcType="VARCHAR"/>
-        <result column="parentId2" property="parentId" jdbcType="INTEGER"/>
-        <result column="enabled2" property="enabled" jdbcType="BIT"/>
-        <association property="meta" javaType="com.li.vhr.model.Meta">
-            <result column="keepAlive2" property="keepAlive" jdbcType="BIT"/>
-            <result column="requireAuth2" property="requireAuth" jdbcType="BIT"/>
-        </association>
+            <id column="id2" property="id" jdbcType="INTEGER"/>
+            <result column="url2" property="url" jdbcType="VARCHAR"/>
+            <result column="path2" property="path" jdbcType="VARCHAR"/>
+            <result column="component2" property="component" jdbcType="VARCHAR"/>
+            <result column="name2" property="name" jdbcType="VARCHAR"/>
+            <result column="iconCls2" property="iconCls" jdbcType="VARCHAR"/>
+            <result column="parentId2" property="parentId" jdbcType="INTEGER"/>
+            <result column="enabled2" property="enabled" jdbcType="BIT"/>
+            <association property="meta" javaType="com.li.vhr.model.Meta">
+                <result column="keepAlive2" property="keepAlive" jdbcType="BIT"/>
+                <result column="requireAuth2" property="requireAuth" jdbcType="BIT"/>
+            </association>
+        </collection>
+    </resultMap>
+    <resultMap id="MenuWitchRole" type="Menu" extends="BaseResultMap">
+        <collection property="roles" ofType="com.li.vhr.model.Role">
+            <result column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnameZh" property="namezh"/>
         </collection>
     </resultMap>
     <sql id="Base_Column_List">
@@ -37,7 +44,19 @@
 
 
 
+
+
+
+
+
+
     id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
+
+
+
+
+
+
 
 
 
@@ -48,12 +67,30 @@
 
 
 
+
+
+
+
+
+
     select 
 
 
 
 
+
+
+
+
+
+
         <include refid="Base_Column_List"/>
+
+
+
+
+
+
 
 
 
@@ -64,8 +101,20 @@
 
 
 
+
+
+
+
+
+
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+
+
+
+
+
 
 
 
@@ -76,8 +125,20 @@
 
 
 
+
+
+
+
+
+
     </delete>
     <insert id="insert" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+
+
 
 
 
@@ -94,13 +155,31 @@
 
 
 
+
+
+
+
+
+
     </insert>
     <insert id="insertSelective" parameterType="com.li.vhr.model.Menu">
 
 
 
 
+
+
+
+
+
+
     insert into menu
+
+
+
+
+
+
 
 
 
@@ -112,13 +191,31 @@
 
 
 
+
+
+
+
+
+
             </if>
             <if test="url != null">
 
 
 
 
+
+
+
+
+
+
         url,
+
+
+
+
+
+
 
 
 
@@ -129,7 +226,19 @@
 
 
 
+
+
+
+
+
+
         path,
+
+
+
+
+
+
 
 
 
@@ -140,7 +249,19 @@
 
 
 
+
+
+
+
+
+
         component,
+
+
+
+
+
+
 
 
 
@@ -151,7 +272,19 @@
 
 
 
+
+
+
+
+
+
         name,
+
+
+
+
+
+
 
 
 
@@ -162,7 +295,19 @@
 
 
 
+
+
+
+
+
+
         iconCls,
+
+
+
+
+
+
 
 
 
@@ -173,7 +318,19 @@
 
 
 
+
+
+
+
+
+
         keepAlive,
+
+
+
+
+
+
 
 
 
@@ -184,7 +341,19 @@
 
 
 
+
+
+
+
+
+
         requireAuth,
+
+
+
+
+
+
 
 
 
@@ -195,13 +364,31 @@
 
 
 
+
+
+
+
+
+
         parentId,
+
+
+
+
+
+
 
 
 
 
             </if>
             <if test="enabled != null">
+
+
+
+
+
+
 
 
 
@@ -216,13 +403,31 @@
 
 
 
+
+
+
+
+
+
             </if>
             <if test="url != null">
 
 
 
 
+
+
+
+
+
+
         #{url,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -233,7 +438,19 @@
 
 
 
+
+
+
+
+
+
         #{path,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -244,7 +461,19 @@
 
 
 
+
+
+
+
+
+
         #{component,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -255,7 +484,19 @@
 
 
 
+
+
+
+
+
+
         #{name,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -266,7 +507,19 @@
 
 
 
+
+
+
+
+
+
         #{iconCls,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -277,7 +530,19 @@
 
 
 
+
+
+
+
+
+
         #{keepAlive,jdbcType=BIT},
+
+
+
+
+
+
 
 
 
@@ -288,7 +553,19 @@
 
 
 
+
+
+
+
+
+
         #{requireAuth,jdbcType=BIT},
+
+
+
+
+
+
 
 
 
@@ -299,13 +576,31 @@
 
 
 
+
+
+
+
+
+
         #{parentId,jdbcType=INTEGER},
+
+
+
+
+
+
 
 
 
 
             </if>
             <if test="enabled != null">
+
+
+
+
+
+
 
 
 
@@ -319,7 +614,19 @@
 
 
 
+
+
+
+
+
+
     update menu
+
+
+
+
+
+
 
 
 
@@ -331,13 +638,31 @@
 
 
 
+
+
+
+
+
+
             </if>
             <if test="path != null">
 
 
 
 
+
+
+
+
+
+
         path = #{path,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -348,7 +673,19 @@
 
 
 
+
+
+
+
+
+
         component = #{component,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -359,7 +696,19 @@
 
 
 
+
+
+
+
+
+
         name = #{name,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -370,7 +719,19 @@
 
 
 
+
+
+
+
+
+
         iconCls = #{iconCls,jdbcType=VARCHAR},
+
+
+
+
+
+
 
 
 
@@ -381,7 +742,19 @@
 
 
 
+
+
+
+
+
+
         keepAlive = #{keepAlive,jdbcType=BIT},
+
+
+
+
+
+
 
 
 
@@ -392,7 +765,19 @@
 
 
 
+
+
+
+
+
+
         requireAuth = #{requireAuth,jdbcType=BIT},
+
+
+
+
+
+
 
 
 
@@ -403,13 +788,31 @@
 
 
 
+
+
+
+
+
+
         parentId = #{parentId,jdbcType=INTEGER},
+
+
+
+
+
+
 
 
 
 
             </if>
             <if test="enabled != null">
+
+
+
+
+
+
 
 
 
@@ -421,13 +824,31 @@
 
 
 
+
+
+
+
+
+
     where id = #{id,jdbcType=INTEGER}
+
+
+
+
+
+
 
 
 
 
     </update>
     <update id="updateByPrimaryKey" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+
+
 
 
 
@@ -447,9 +868,21 @@
 
 
 
+
+
+
+
+
+
     </update>
 
     <select id="getMenu" resultMap="Menu2">
+
+
+
+
+
+
 
         SELECT
            DISTINCT
@@ -478,6 +911,39 @@
             m2.`enabled`=TRUE
 
         ORDER BY m1.`id`,m2.`id`
+
+
+
+
+
+
+
+    </select>
+    <select id="getAllMenusWithRole" resultMap="MenuWitchRole">
+
+
+
+
+
+    SELECT
+     m.*,
+     r.`id` AS rid,
+     r.`name` AS rname,
+     r.nameZh AS rnameZh
+FROM
+    menu m,
+    menu_role mr,
+    role r
+WHERE
+    m.`id`=mr.`mid`
+	AND
+    mr.`rid`=r.`id`
+ORDER BY
+    m.`id`
+
+
+
+
 
     </select>
 </mapper>

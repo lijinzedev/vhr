@@ -1,9 +1,12 @@
 package com.li.vhr.model;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hr implements UserDetails {
     private Integer id;
@@ -25,6 +28,16 @@ public class Hr implements UserDetails {
     private String userface;
 
     private String remark;
+    private List<Role> roles;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public Integer getId() {
         return id;
@@ -71,6 +84,7 @@ public class Hr implements UserDetails {
         this.enabled = enabled;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -80,11 +94,13 @@ public class Hr implements UserDetails {
     public boolean isAccountNonExpired() {
         return true;
     }
-        // 账号是否没锁定
+
+    // 账号是否没锁定
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     // 密码是否没有过期
     @Override
     public boolean isCredentialsNonExpired() {
@@ -102,9 +118,12 @@ public class Hr implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+        List<SimpleGrantedAuthority> collect = roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
+        return collect;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }

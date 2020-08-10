@@ -1,9 +1,6 @@
 package com.li.vhr.controller;
 
-import com.li.vhr.model.Hr;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -18,5 +15,16 @@ public class HelloController {
     public String hello() {
 
         return "Hello";
+    }
+
+    @GetMapping("/employee/basic/hello")
+    public String hello1() {
+
+        return "/employee/basic/hello ";
+    }
+    @GetMapping("/employee/advanced/hello")
+    public String hello2() {
+
+        return "/employee/advanced/hello";
     }
 }

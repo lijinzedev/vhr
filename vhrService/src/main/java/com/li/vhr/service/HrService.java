@@ -23,7 +23,10 @@ public class HrService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Hr hr = hrMapper.loadUserByUsername(s);
         // 根据用户名查询,用户可能不存在,需要抛出异常
-        if (hr == null) throw new UsernameNotFoundException("用户名不存在");
+        if (hr == null) {
+            throw new UsernameNotFoundException("用户名不存在");
+        }
+        hr.setRoles(hrMapper.getRolesByUserId(hr.getId()));
         return hr;
     }
 }

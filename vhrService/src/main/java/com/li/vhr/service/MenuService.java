@@ -22,4 +22,8 @@ public class MenuService {
         return menuMapper.getMenu(hr.getId());
 
     }
+
+    public List<Menu> getAllMenusWithRole() {
+        return menuMapper.getAllMenusWithRole();
+    }
 }

@@ -33,12 +33,8 @@
               <el-menu-item :index="child.path" v-for="(child,j) in item.children" :key="j">{{ child.name }}
               </el-menu-item>
             </el-submenu>
-
           </el-menu>
         </el-aside>
-
-
-
         <!--中心主体-->
         <el-main>
           <!--         面包线-->
@@ -142,7 +138,8 @@ export default {
 .el-icon-arrow-down {
   font-size: 12px;
 }
-.homeWelcome{
+
+.homeWelcome {
   text-align: center;
   align-items: center;
   font-size: 80px;
