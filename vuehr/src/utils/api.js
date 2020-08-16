@@ -3,15 +3,17 @@ import {Message} from 'element-ui';
 
 axios.interceptors.response.use(
     success => {
-        if (success.status && success.status == 200 && success.data.status == 500) {
-
-            Message.error({message: success.data.status.msg});
+        debugger
+        if (success.status && success.status == 200 && success.data.code == 500) {
+            Message.error({message: success.data.message});
             return;
         }
-        if (success.data.status)
-            if (success.data.status.msg)
-                Message.success({message: success.data.status.msg});
-        return success.data;
+        if (success.data.message)
+            Message.success({message: success.data.message});
+        if (success.data.data == null) {
+            success.data.data = "success";
+        }
+        return success.data.data;
     }, error => {
         if (error.response.status == 504 || error.response.status == 404) {
             Message.error({message: "服务器被吃了! ! ! "});

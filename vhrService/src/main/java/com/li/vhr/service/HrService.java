@@ -29,4 +29,6 @@ public class HrService implements UserDetailsService {
         hr.setRoles(hrMapper.getRolesByUserId(hr.getId()));
         return hr;
     }
+
+
 }

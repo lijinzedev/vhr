@@ -25,8 +25,10 @@ import java.util.stream.Collectors;
  */
 @Component
 public class CustomFilter implements FilterInvocationSecurityMetadataSource {
+
     public final static String DEFAULTROLE = "ROLE_LOGIN";
     AntPathMatcher antPathMatcher = new AntPathMatcher();
+
     @Autowired
     HrService hrService;
     @Autowired

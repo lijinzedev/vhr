@@ -1,6 +1,9 @@
 package com.li.vhr.mapper;
 
 import com.li.vhr.model.Position;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface PositionMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface PositionMapper {
     int updateByPrimaryKeySelective(Position record);
 
     int updateByPrimaryKey(Position record);
+
+    List<Position> getAllPositions();
+
+    int deletePositionByIds(@Param("ids") Integer[] ids);
 }

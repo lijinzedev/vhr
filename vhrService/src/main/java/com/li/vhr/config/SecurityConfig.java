@@ -1,11 +1,13 @@
 package com.li.vhr.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.li.vhr.api.CommonResult;
 import com.li.vhr.model.Hr;
-import com.li.vhr.result.ResultBean;
-import com.li.vhr.result.ResultStatus;
 import com.li.vhr.service.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -28,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @description:
@@ -35,7 +38,10 @@ import java.io.PrintWriter;
  * @createDate: 2020/8/6
  */
 @Configuration
+
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -87,7 +93,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         PrintWriter writer = resp.getWriter();
                         Hr principal = (Hr) authentication.getPrincipal();
                         principal.setPassword(null);
-                        String json = new ObjectMapper().writeValueAsString(ResultBean.ok(principal));
+                        String json = new ObjectMapper().writeValueAsString(CommonResult.success(principal,"登录成功"));
                         writer.write(json);
                         writer.flush();
                         writer.close();
@@ -97,20 +103,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse resp, AuthenticationException e) throws IOException, ServletException {
                 resp.setContentType("application/json;charset=utf-8");
                 PrintWriter writer = resp.getWriter();
-                ResultBean r = ResultBean.error("未知错误,登录失败");
+                CommonResult r = CommonResult.failed("未知错误,登录失败");
 
                 // 账户被锁定
                 if (e instanceof LockedException) {
-                    r = ResultBean.error("账户锁定,登录失败");
+                    r = CommonResult.failed("账户锁定,登录失败");
                 } else if (e instanceof CredentialsExpiredException) {
-                    r = ResultBean.error("密码过期,录失败");
+                    r = CommonResult.failed("密码过期,录失败");
                 } else if (e instanceof AccountExpiredException) {
-                    r = ResultBean.error("账号过期,登录失败");
+                    r = CommonResult.failed("账号过期,登录失败");
                 } else if (e instanceof DisabledException) {
-                    r = ResultBean.error("账户禁用,登录失败");
+                    r = CommonResult.failed("账户禁用,登录失败");
                 } else if (e instanceof BadCredentialsException) {
-                    r = ResultBean.error("用户名或者密码输入错误,登录失败");
+                    r = CommonResult.failed("用户名或者密码输入错误,登录失败");
                 }
+
                 writer.write(new ObjectMapper().writeValueAsString(r));
                 writer.flush();
                 writer.close();
@@ -124,10 +131,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse resp, Authentication authentication) throws IOException, ServletException {
                         resp.setContentType("application/json;charset=utf-8");
                         PrintWriter writer = resp.getWriter();
-                        writer.write(new ObjectMapper().writeValueAsString(ResultBean.ok(ResultStatus.LOGINOUT)));
+                        writer.write(new ObjectMapper().writeValueAsString(CommonResult.success(null,"注销成功")));
                     }
                 })
                 .permitAll().and()
-                .csrf().disable();
+                .csrf().disable().
+                // 没有认证,可以在这里处理结果不要重定向
+                        exceptionHandling().authenticationEntryPoint((request, response, e) -> {
+            response.setContentType("application/json;charset=utf-8");
+            PrintWriter writer = response.getWriter();
+            CommonResult r = CommonResult.failed("未知错误,登录失败");
+            if (e instanceof InsufficientAuthenticationException) {
+                r = CommonResult.failed("请求失败,请联系管理员");
+            }
+
+            writer.write(new ObjectMapper().writeValueAsString(r));
+            writer.flush();
+            writer.close();
+
+        });
     }
 }

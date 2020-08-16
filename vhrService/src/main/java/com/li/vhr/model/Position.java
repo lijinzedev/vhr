@@ -2,13 +2,16 @@ package com.li.vhr.model;
 
 import java.util.Date;
 
+/**
+ * @author LiJinZe
+ */
+
 public class Position {
     private Integer id;
 
     private String name;
 
-    private Date createdate;
-
+    private Date createDate;
     private Boolean enabled;
 
     public Integer getId() {
@@ -27,12 +30,12 @@ public class Position {
         this.name = name == null ? null : name.trim();
     }
 
-    public Date getCreatedate() {
-        return createdate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreatedate(Date createdate) {
-        this.createdate = createdate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     public Boolean getEnabled() {

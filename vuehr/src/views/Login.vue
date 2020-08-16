@@ -41,12 +41,11 @@ export default {
           // 数据
           this.postKeyValueRequest('/doLogin', this.loginForm).then(resp => {
             // 如果请求成功
-
-
             if (resp) {
-              let info = JSON.stringify(resp.data);
+              let info = JSON.stringify(resp);
               window.sessionStorage.setItem("user", info);
-              this.$router.replace('/home');
+              let redirect = this.$route.query.redirect;
+              this.$router.replace((redirect=='/'||redirect==undefined)?'/home':redirect);
             }
 
           })

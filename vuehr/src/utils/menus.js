@@ -8,8 +8,8 @@ export const initMenu = (router, store) => {
 
     getRequest("/system/config/menu").then(data => {
         //如果请求到了数据
-        if (data) {
 
+        if (data) {
             let fmtRoutes = [];
             fmtRoutes = formatRoutes(data);
             router.addRoutes(fmtRoutes);
@@ -18,12 +18,12 @@ export const initMenu = (router, store) => {
 
 
     }).catch(data => {
-
         console.log(data)
     })
 }
 
 export const formatRoutes = (router) => {
+
     let fmRoutes = [];
     router.forEach(routes => {
         // 批量定义

@@ -1,5 +1,6 @@
 package com.li.vhr.controller;
 
+import com.li.vhr.api.ResultWarrp;
 import com.li.vhr.model.Menu;
 import com.li.vhr.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ public class SystemConfigController {
     MenuService menuService;
 
     @GetMapping("/menu")
-    public List<Menu> getMenu() {
-        return menuService.getMenu();
+    public ResultWarrp getMenu() {
+        ResultWarrp<List<Menu>> resultWarrp = new ResultWarrp<>();
+        resultWarrp.setData(menuService.getMenu());
+        return resultWarrp;
     }
 }
