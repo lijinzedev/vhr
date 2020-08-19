@@ -1,18 +1,18 @@
 <template>
   <el-tabs v-model="activeName" type="card">
-    <el-tab-pane label="部门管理" name="first">
+    <el-tab-pane label="部门管理" name="depmanager">
       <DepManager></DepManager>
     </el-tab-pane>
-    <el-tab-pane label="职位管理" name="second">
+    <el-tab-pane label="职位管理" name="posmanager">
       <PosManager></PosManager>
     </el-tab-pane>
-    <el-tab-pane label="职称管理" name="third">
+    <el-tab-pane label="职称管理" name="joblevelmanager">
       <JobLevelManager></JobLevelManager>
     </el-tab-pane>
-    <el-tab-pane label="奖惩规则" name="fourth">
+    <el-tab-pane label="奖惩规则" name="ecmanager">
       <EcManager></EcManager>
     </el-tab-pane>
-    <el-tab-pane label="权限组" name="fourth2">
+    <el-tab-pane label="权限组" name="permissmanager">
       <PermissManager></PermissManager>
     </el-tab-pane>
   </el-tabs>
@@ -29,7 +29,7 @@ import PosManager from '../../components/sys/basic/PosManager'
 export default {
   data() {
     return {
-      activeName: 'first'
+      activeName: 'joblevelmanager'
     };
   },
   methods: {},

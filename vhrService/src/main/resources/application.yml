@@ -5,10 +5,11 @@ spring:
     username: root
     password: root
     type: com.alibaba.druid.pool.DruidDataSource
+
 mybatis:
   type-aliases-package: com.li.vhr.model
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
   port: 8081

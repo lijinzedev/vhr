@@ -39,9 +39,20 @@
               label="职位名称"
               width="200">
           </el-table-column>
+
+
+
           <el-table-column
               prop="createDate"
               label="创建时间">
+          </el-table-column>
+          <el-table-column
+              label="是否启用"
+              width="100">
+            <template slot-scope="scope">
+              <el-tag v-if="scope.row.enabled" type="success">已启用</el-tag>
+              <el-tag v-else="scope.row.enabled" type="danger">未启用</el-tag>
+            </template>
           </el-table-column>
           <el-table-column
               label="操作">
@@ -74,10 +85,21 @@
         <el-tag>职位名称</el-tag>
         <el-input size="small" class="updatePosInput" v-model="updataPos.name"></el-input>
       </div>
+      <div>
+        <el-tag>是否启用</el-tag>
+        <el-switch
+            v-model="updataPos.enabled"
+            style="margin-left: 5px"
+            size="small"
+            active-text="启用"
+            inactive-text="禁用"
+        >
+        </el-switch>
+      </div>
       <span slot="footer" class="dialog-footer">
     <el-button size="small" @click="dialogVisible = false">取 消</el-button>
     <el-button size="small" type="primary" @click="doupdate">确 定</el-button>
-  </span>
+      </span>
     </el-dialog>
 
   </div>
@@ -96,6 +118,7 @@ export default {
       multipleSelection: [],
       updataPos: {
         name: '',
+        enabled:false,
       },
       dialogVisible: false,
       // 表格数据
@@ -116,7 +139,7 @@ export default {
         this.multipleSelection.forEach(item => {
           ids += 'ids=' + item.id + '&';
         })
-        this.deleteRequest("/system/basic/pos/"+ids).then(data => {
+        this.deleteRequest("/system/basic/pos/" + ids).then(data => {
           if (data) {
             this.initPositions();
           }
