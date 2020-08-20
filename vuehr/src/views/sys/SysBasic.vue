@@ -29,7 +29,7 @@ import PosManager from '../../components/sys/basic/PosManager'
 export default {
   data() {
     return {
-      activeName: 'joblevelmanager'
+      activeName: 'permissmanager'
     };
   },
   methods: {},

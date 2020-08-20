@@ -36,10 +36,59 @@
         <collection property="roles" ofType="com.li.vhr.model.Role">
             <result column="rid" property="id"/>
             <result column="rname" property="name"/>
-            <result column="rnameZh" property="namezh"/>
+            <result column="rnameZh" property="nameZh"/>
         </collection>
     </resultMap>
+    <resultMap id="MenuWithChidrens" type="Menu">
+        <result property="name" column="name1"/>
+        <result property="id" column="id1"/>
+        <collection property="children" ofType="com.li.vhr.model.Menu">
+            <result property="name" column="name2"/>
+            <result property="id" column="id2"/>
+            <collection property="children" ofType="com.li.vhr.model.Menu">
+                <result property="name" column="name3"/>
+                <result property="id" column="id3"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="getAllMenus" resultMap="MenuWithChidrens">
+
+
+
+
+        
+    
+SELECT 
+	m1.`id` id1,m1.`name` name1,
+	m2.`id` id2,m2.`name` name2,
+	m3.`id` id3,m3.`name` name3
+FROM 
+	menu m1
+INNER JOIN 
+	menu m2
+	ON
+	m1.`id`=m2.`parentId`
+INNER JOIN 
+	menu m3
+	ON 
+	m2.`id`=m3.`parentId`
+ORDER BY
+	m1.`id`,m2.`id`,m3.`id`
+
+
+
+
+
+
+    </select>
+
+
     <sql id="Base_Column_List">
+
+
+
+
+        
 
 
 
@@ -61,30 +110,50 @@
 
 
 
+    
+
+
+
+
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 
 
 
 
+        
 
 
 
 
 
 
-    select 
+
+
+
+
+    select
 
 
 
 
 
 
+
+
+
+
+        
 
 
 
 
         <include refid="Base_Column_List"/>
+
+
+
+
+        
 
 
 
@@ -107,8 +176,18 @@
 
 
 
+    
+
+
+
+
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+
+
+
+        
 
 
 
@@ -131,8 +210,18 @@
 
 
 
+    
+
+
+
+
     </delete>
     <insert id="insert" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+        
 
 
 
@@ -161,8 +250,18 @@
 
 
 
+    
+
+
+
+
     </insert>
     <insert id="insertSelective" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+        
 
 
 
@@ -184,6 +283,11 @@
 
 
 
+        
+
+
+
+
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
@@ -197,8 +301,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="url != null">
+
+
+
+
+                
 
 
 
@@ -220,8 +334,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="path != null">
+
+
+
+
+                
 
 
 
@@ -243,8 +367,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="component != null">
+
+
+
+
+                
 
 
 
@@ -266,8 +400,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="name != null">
+
+
+
+
+                
 
 
 
@@ -289,8 +433,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="iconCls != null">
+
+
+
+
+                
 
 
 
@@ -312,8 +466,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="keepAlive != null">
+
+
+
+
+                
 
 
 
@@ -335,8 +499,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="requireAuth != null">
+
+
+
+
+                
 
 
 
@@ -358,8 +532,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="parentId != null">
+
+
+
+
+                
 
 
 
@@ -381,8 +565,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="enabled != null">
+
+
+
+
+                
 
 
 
@@ -409,8 +603,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="url != null">
+
+
+
+
+                
 
 
 
@@ -432,8 +636,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="path != null">
+
+
+
+
+                
 
 
 
@@ -455,8 +669,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="component != null">
+
+
+
+
+                
 
 
 
@@ -478,8 +702,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="name != null">
+
+
+
+
+                
 
 
 
@@ -501,8 +735,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="iconCls != null">
+
+
+
+
+                
 
 
 
@@ -524,8 +768,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="keepAlive != null">
+
+
+
+
+                
 
 
 
@@ -547,8 +801,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="requireAuth != null">
+
+
+
+
+                
 
 
 
@@ -570,8 +834,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="parentId != null">
+
+
+
+
+                
 
 
 
@@ -593,8 +867,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="enabled != null">
+
+
+
+
+                
 
 
 
@@ -610,6 +894,11 @@
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+        
 
 
 
@@ -631,6 +920,11 @@
 
 
 
+        
+
+
+
+
         <set>
             <if test="url != null">
                 url = #{url,jdbcType=VARCHAR},
@@ -644,8 +938,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="path != null">
+
+
+
+
+                
 
 
 
@@ -667,8 +971,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="component != null">
+
+
+
+
+                
 
 
 
@@ -690,8 +1004,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="name != null">
+
+
+
+
+                
 
 
 
@@ -713,8 +1037,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="iconCls != null">
+
+
+
+
+                
 
 
 
@@ -736,8 +1070,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="keepAlive != null">
+
+
+
+
+                
 
 
 
@@ -759,8 +1103,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="requireAuth != null">
+
+
+
+
+                
 
 
 
@@ -782,8 +1136,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="parentId != null">
+
+
+
+
+                
 
 
 
@@ -805,8 +1169,18 @@
 
 
 
+            
+
+
+
+
             </if>
             <if test="enabled != null">
+
+
+
+
+                
 
 
 
@@ -820,6 +1194,11 @@
         enabled = #{enabled,jdbcType=BIT},
             </if>
         </set>
+
+
+
+
+        
 
 
 
@@ -841,8 +1220,18 @@
 
 
 
+    
+
+
+
+
     </update>
     <update id="updateByPrimaryKey" parameterType="com.li.vhr.model.Menu">
+
+
+
+
+        
 
 
 
@@ -874,9 +1263,19 @@
 
 
 
+    
+
+
+
+
     </update>
 
     <select id="getMenu" resultMap="Menu2">
+
+
+
+
+        
 
 
 
@@ -918,8 +1317,18 @@
 
 
 
+    
+
+
+
+
     </select>
     <select id="getAllMenusWithRole" resultMap="MenuWitchRole">
+
+
+
+
+        
 
 
 
@@ -941,6 +1350,11 @@ WHERE
 ORDER BY
     m.`id`
 
+
+
+
+
+    
 
 
 
