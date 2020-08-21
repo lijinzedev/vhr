@@ -1,13 +1,10 @@
 package com.li.vhr.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.li.vhr.api.CommonResult;
 import com.li.vhr.model.Hr;
 import com.li.vhr.service.HrService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -30,7 +27,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.format.DateTimeFormatter;
 
 /**
  * @description:
@@ -139,6 +135,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 没有认证,可以在这里处理结果不要重定向
                         exceptionHandling().authenticationEntryPoint((request, response, e) -> {
             response.setContentType("application/json;charset=utf-8");
+            response.setStatus(401);
             PrintWriter writer = response.getWriter();
             CommonResult r = CommonResult.failed("未知错误,登录失败");
             if (e instanceof InsufficientAuthenticationException) {

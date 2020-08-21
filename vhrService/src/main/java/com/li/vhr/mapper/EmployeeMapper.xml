@@ -47,6 +47,7 @@
     delete from employee
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.li.vhr.model.Employee" >
     insert into employee (id, name, gender, 
       birthday, idCard, wedlock, nationId, 

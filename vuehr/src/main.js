@@ -18,7 +18,7 @@ Vue.prototype.getRequest=getRequest;
 Vue.prototype.postRequest=postRequest;
 Vue.use(ElementUI);
 Vue.config.productionTip = false
-
+Vue.use(ElementUI,{size:'small'})
 // 前置导航守卫 类似于java的拦截器
 router.beforeEach((to,from,next)=>{
     if (to.path=='/') next();
