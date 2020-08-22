@@ -1,7 +1,5 @@
 package com.li.vhr.config;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -54,9 +52,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         StringOrMappingJackson2HttpMessageConverter messageConverter = new StringOrMappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setDateFormat(new SimpleDateFormat(dateFormat));
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+        //       ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.setDateFormat(new SimpleDateFormat(dateFormat));
+//        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 //        objectMapper.getSerializerProvider().setNullValueSerializer(new JsonSerializer<Object>() {
 //            @Override
 //            public void serialize(Object o, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
@@ -66,7 +64,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //        SimpleModule module = new SimpleModule();
 //        module.addSerializer(Collection.class, new CollectionIgnoreNullSerializer());
 //        objectMapper.registerModule(module);
-        messageConverter.setObjectMapper(objectMapper);
+        //   messageConverter.setObjectMapper(objectMapper);
         converters.add(0, messageConverter);
     }
 
